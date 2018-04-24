@@ -1,5 +1,7 @@
 package ivan.petrychenko;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -61,7 +63,7 @@ public class Main {
                 return Collections.singletonList( "" );
             }
 
-            List<String> all = new LinkedList<>();
+            List<String> all = new ArrayList<>((int) Math.pow(curWordLength, alphabetSize));
 
             final int prevWordLength = curWordLength - 1;
             List<String> prevStep = generateAllOfLength( prevWordLength );
@@ -103,13 +105,30 @@ public class Main {
 	    Permutator mutator = new Permutator( 2, 10, 2 );
         System.out.println( "The alphabet: " + mutator.getAlphabet() );
         List<String> words;
+
+        LocalDateTime before, after;
+
+        before = LocalDateTime.now();
         words = mutator.generateAllOptimalTime();
-        System.out.println( "Permutations ("+words.size()+" total by "+mutator.getCallCounter()+" calls ): " );
+        after = LocalDateTime.now();
+
+        System.out.println("Permutations (" + words.size() +
+                " total by " + mutator.getCallCounter() + " calls )" +
+                " in " + Duration.between(before, after) + " " +
+                ": ");
         words.stream().limit(12).forEach(System.out::println);
         System.out.println("...");
 
+        System.out.println();
+
+        before = LocalDateTime.now();
         words = mutator.generateAllElegantCode();
-        System.out.println( "Permutations ("+words.size()+" total by "+mutator.getCallCounter()+" calls ): " );
+        after = LocalDateTime.now();
+
+        System.out.println("Permutations (" + words.size() +
+                " total by " + mutator.getCallCounter() + " calls )" +
+                " in " + Duration.between(before, after) + " " +
+                ": ");
         words.stream().limit(12).forEach(System.out::println);
         System.out.println("...");
 
