@@ -61,7 +61,7 @@ public class Main {
                 return Collections.singletonList( "" );
             }
 
-            List<String> all = new ArrayList<>( (int)Math.pow(alphabetSize, curWordLength) );
+            List<String> all = new LinkedList<>();
 
             final int prevWordLength = curWordLength - 1;
             List<String> prevStep = generateAllOfLength( prevWordLength );
@@ -102,13 +102,16 @@ public class Main {
     public static void main(String[] args) {
 	    Permutator mutator = new Permutator( 2, 10, 2 );
         System.out.println( "The alphabet: " + mutator.getAlphabet() );
-        List<String> words = mutator.generateAllOptimalTime();
+        List<String> words;
+        words = mutator.generateAllOptimalTime();
         System.out.println( "Permutations ("+words.size()+" total by "+mutator.getCallCounter()+" calls ): " );
-        words.forEach( System.out::println );
+        words.stream().limit(12).forEach(System.out::println);
+        System.out.println("...");
 
         words = mutator.generateAllElegantCode();
         System.out.println( "Permutations ("+words.size()+" total by "+mutator.getCallCounter()+" calls ): " );
-        words.forEach( System.out::println );
+        words.stream().limit(12).forEach(System.out::println);
+        System.out.println("...");
 
     }
 }
